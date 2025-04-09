@@ -5,17 +5,20 @@ from model.situazione import Situazione
 class MeteoDao():
 
     @staticmethod
-    def get_situations_month(month):
+    def get_situations_month(month, max_day):
         cnx = DBConnect.get_connection()
         cursor = cnx.cursor(dictionary=True)
         query = f"""SELECT Localita, Data, Umidita
                     FROM situazione
-                    WHERE MONTH(Data) = {month}
+                    WHERE MONTH(Data) = {month} AND DAY(Data) <= {max_day}
                     ORDER BY Data ASC"""
         cursor.execute(query)
         result = []
+        for i in range(0,max_day):
+            result.append(list())
         for row in cursor:
-            result.append(Situazione(row["Localita"],
+            day = row["Data"].day
+            result[day-1].append(Situazione(row["Localita"],
                                      row["Data"],
                                      row["Umidita"]))
         cursor.close()

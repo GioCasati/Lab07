@@ -15,4 +15,7 @@ class Situazione:
         return hash((self.localita, self.data))
 
     def __str__(self):
-        return f"[{self.localita} - {self.data}] Umidità = {self.umidita}"
+        return f"{self.localita} - {self.data}, umidità = {self.umidita}"
+
+    def __repr__(self):
+        return self.__str__()

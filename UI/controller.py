@@ -32,8 +32,7 @@ class Controller:
             self._view.create_alert("Select a month")
             self._view.update_page()
             return
-        for day in self._model.get_sequence(month):
-            self._view.lst_result.controls.append(ft.Text(f"Day {day[0]}: {day[1]}"))
+        self._model.get_sequence(month)
         self._view.update_page()
 
     def read_mese(self, e):
